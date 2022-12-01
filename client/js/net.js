@@ -1,3 +1,5 @@
+const SERVER_IP = "ws://localhost:2222/ws";
+
 class Server {
     constructor(player, opponent, lobby) {
         this.playing = false;
@@ -9,7 +11,7 @@ class Server {
         this.opponent = opponent;
         this.lobby    = lobby;
 
-        this.ws = new WebSocket(`ws://localhost:2222/ws?lobby=${lobby}`);
+        this.ws = new WebSocket(`{SERVER_IP}?lobby=${lobby}`);
 
         Runner.imageSprite.addEventListener(Runner.events.LOAD, () => {
             this.startListening();

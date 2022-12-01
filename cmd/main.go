@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -17,8 +18,6 @@ var UPGRADER = websocket.Upgrader{
 
 type Lobby struct {
 	p1, p2 *websocket.Conn
-
-	// ttl float32
 }
 
 var LOBBIES = make(map[int]*Lobby)
@@ -130,7 +129,7 @@ func main() {
 	http.HandleFunc("/ws", wsHandler)
 	http.Handle("/", http.FileServer(http.Dir("client")))
 
-	err := http.ListenAndServe("0.0.0.0:2222", nil)
+	err := http.ListenAndServe("0.0.0.0:" + os.Getenv("PORT"), nil)
 	if err != nil {
 		fmt.Println("Server Failed To Start!")
 	}
